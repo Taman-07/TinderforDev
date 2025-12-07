@@ -2,48 +2,27 @@ const express=require('express');
 
 const app=express();
 
-
-app.use("/user", [(req, res, next)=> {
-    console.log("Response 1");
-    // res.send("Response1 !!!!!");
-    next();
-},
-    (req,res,next)=>{
-        console.log("Response 2");
-        // res.send("Response 2!!!!");
-        next();
-    },],
-    (req,res)=>{
-        console.log("Response 3");
-        res.send("Response 3!!!!");
-    }
-)
+const { adminAuth, userAuth }=require('./middlewares/auth');
 
 
-
-// app.get("/user", (req, res)=> {
-//     res.send({"firstname":"Tamanjot", "lastname":"Kaur"});
-// })
+app.use("/admin", adminAuth); 
 
 
-// app.get("/user/:name", (req, res)=> {
-//     res.send({"firstname":"Tamanjot", "lastname":"Kaur"});
-// })
+app.get("/admin/getAllData", (req,res) =>{
+    res.send("All Data Sent");
+})
 
-// app.post("/user", (req, res)=> {
-//     res.send("Data successully saved to the database");
-// })
+app.get("/admin/deleteUser", (req,res) =>{
+    res.send("Deleted a User");
+})
 
-// app.delete("/user", (req, res)=> {
-//     res.send("Delete user successfully");
-// })
+app.get("/user/login", (re,res) =>{
+    res.send("User logged in successfully");
+})
 
-// // order matters if we write the "/" in the first then it completes all the requests
-// //.use match all the https call methods to /test
-
-// app.use("/test", (req, res) =>{
-//     res.send("Hello from the server ");
-// })
+app.get("/user/data", userAuth, (req,res) =>{
+    res.send("User Data Sent");
+})
 
 
 app.listen(3000, () => {
