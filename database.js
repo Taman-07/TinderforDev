@@ -16,11 +16,29 @@ async function main() {
     lastname: "deep",
     city: "Mumbai"
   }
-  const insertResult = await collection.insertMany([data]);
+
+  const data1={
+    firstname: "Raj",
+    lastname: "",
+    city: "Banglore"
+  }
+  const insertResult = await collection.insertMany([data, data1]);
   console.log('Inserted documents =>', insertResult);
 
   const findResult = await collection.find({}).toArray();
   console.log('Found documents =>', findResult);
+
+  const updateResult = await collection.updateOne({firstname: "Raman"}, { $set: {city: "Banglore"} });
+  console.log('Updated documents =>', updateResult);
+
+  const deleteResult = await collection.deleteMany({firstname: "Raman"});
+  console.log('Deleted documents =>', deleteResult);
+
+  const findDoc=await collection.find({firstname: "Raj"}).toArray();
+  console.log(findDoc);
+
+  const countDoc=await collection.countDocuments({});
+  console.log("Count of Documents", countDoc);
 
   return 'done.';
 }
