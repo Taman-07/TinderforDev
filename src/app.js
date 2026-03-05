@@ -1,21 +1,13 @@
 const express=require('express');
-
-const connectDB = require("../databaseM");
-
+const connectDB = require("./config/databaseM");
 const app=express();
-
 const User=require("./models/user");
 
+app.use(express.json());
+
 app.post("/signup", async (req,res) => {
-    const userObj={
-        firstName: "Tamanjot",
-        lastName: "K",
-        email: "tamanjot_k@gmail.com",
-        password: "tamank123"
-    }
 
-    const user=new User(userObj);
-
+    const user=new User(req.body);
     try{
         await user.save();
         res.send("User Added Successfully");
@@ -36,46 +28,4 @@ connectDB()
         console.log("Database is not connected");
     });
 
-
-// const { adminAuth, userAuth }=require('./middlewares/auth');
-
-
-// app.use("/admin", adminAuth); 
-
-  
-
-// app.get("/getUserData", (req,res) =>{
-//     // logic of DB call and get user data
-//     try{
-//         throw new Error("abcd");
-//         req.send("User Data Sent");
-//     }
-//     catch(err){
-//         res.status(500).send("Something went wrong !!!!");
-//     }
-// });
-
-
-// // app.use("/", (err, req, res, next)=>{
-// //     if(err){
-// //         res.status(500).send("Something went wrong !!!!");
-// //     }
-// // });
-
-
-// // app.get("/admin/getAllData", (req,res) =>{
-// //     res.send("All Data Sent");
-// // })
-
-// // app.get("/admin/deleteUser", (req,res) =>{
-// //     res.send("Deleted a User");
-// // })
-
-// // app.get("/user/login", (re,res) =>{
-// //     res.send("User logged in successfully");
-// // })
-
-// // app.get("/user/data", userAuth, (req,res) =>{
-// //     res.send("User Data Sent");
-// // })
 
