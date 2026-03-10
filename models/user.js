@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const validator=require("validator");
 
-const { userAuth } = require("../middlewares/auth");
+// const { userAuth } = require("../middlewares/auth");
 const { timeStamp } = require("node:console");
 
 const userSchema=mongoose.Schema({
