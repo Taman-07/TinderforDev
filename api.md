@@ -154,4 +154,82 @@ connectDB()
 - 3. Signature -> uses to check JWT actual or not 
 
 
-## created using ->
+## this keyword doesn't work with => functions so we always use = functions 
+
+
+
+### API LIST->
+
+
+# authRouter 
+- POST/ signup 
+- POST/ login
+- POST/ logout
+
+# profileRouter
+- GET/   profile/view
+- PATCH/ profile/edit
+- PATCH/ profile/password
+
+# connectionRouter
+status -> ignore(pass) or like, accepted or rejected
+
+- POST/ request/send/:status/:userId
+- POST/ request/review/:status/:requestId
+
+
+# userRouter
+- GET/ user/requests
+- GET/ user/connections 
+- GET/ user/feed -> gets you the profiles of other users on the platform and keep changing get number of users like 28 or 30 
+
+
+
+
+
+# INDEXES ->
+
+- In our connection DB, if one user is sending request or rejecting or do anything with the requests. It will stored in the DB. 
+- Imagine if there are 100 users and everybody is sending connection request to everyone. This makes our DB very costly to manage cause it has a lot of data.
+
+# That's why we need indexes to make our API'S much faster to find any user.
+- index: true or unique: true 
+- unique is much faster.
+
+# Compound Indexes ->
+- fromUser <=> toUser 
+- it works in both 
+
+
+
+
+# POST API'S -> thought process
+- User is trying to enter the db
+- Attackers can be send some random data into api and make our db spoil.
+- So, validations are soo sooo important.
+
+
+# GET API'S -> thought process
+- We are sure that data is correct and we are sending only allowed data to the correct user.
+
+
+
+
+# Pagination ->
+
+- /feed?page=1&limit=10 => you want first 1-10 users => .skip(0) & .limit(10) 
+
+- /feed?page=2&limit=10 => you want 11-20 users => .skip(10) & .limit(20) 
+
+
+# there are functions for this ->
+- 1 .skip() -> means how many users did you skip from the first
+
+- 2 .limit() -> means how many users did you need means only 10 users you want to show or 20 and so on...
+ 
+
+skip = (page-1) * limit;
+
+# http://localhost:3000/feed?page=1&limit=2 checks using this api 
+
+
