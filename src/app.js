@@ -1,21 +1,32 @@
 const express=require('express');
 const connectDB = require("./config/databaseM");
 const app=express();
-const User=require("./models/user");
+const cookieParser=require("cookie-parser");
+const cors=require("cors");
 
-app.use(express.json());
 
-app.post("/signup", async (req,res) => {
-
-    const user=new User(req.body);
-    try{
-        await user.save();
-        res.send("User Added Successfully");
-    }
-    catch(err){
-        res.send(400).send("Error in saving user" + err.message);
-    }
+app.use(
+    cors({
+  origin: "http://localhost:5173",
+  credentials: true,
 })
+);
+app.use(express.json());
+app.use(cookieParser());
+
+
+
+const authRouter=require('./routes/auth');
+const profileRouter=require('./routes/profile');
+const requestRouter=require('./routes/request');
+const userRouter=require('./routes/user');
+
+
+app.use("/", authRouter);
+app.use("/", profileRouter);
+app.use("/", requestRouter);
+app.use("/", userRouter);
+
 
 connectDB()
     .then(()=>{
@@ -27,5 +38,3 @@ connectDB()
     .catch((err)=>{
         console.log("Database is not connected");
     });
-
-

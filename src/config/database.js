@@ -1,4 +1,3 @@
-
 const{MongoClient}=require("mongodb")
 const url="mongodb+srv://dhimantamanjot_db_user:nDn4jn3q9rQjtbwZ@orgdb.h8akrsd.mongodb.net/";
 const client= new MongoClient(url);

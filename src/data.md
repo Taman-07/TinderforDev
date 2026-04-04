@@ -31,6 +31,3 @@
 
 
 - a middleware is only called for matching / routes not for the another ones
-
-
-- any other data except the user schema table will be ignored by api's 
