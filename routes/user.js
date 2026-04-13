@@ -4,6 +4,11 @@ const { userAuth } = require('../middlewares/auth');
 const ConnectionRequest = require('../models/connectionRequest');
 const User = require('../models/user');
 
+
+
+const USER_SAVE_DATA = ["firstName", "lastName", "photoUrl", "age", "about", "gender"];
+
+
 //  get all the pending connection requests for logged in User
 userRouter.get("/user/requests/received",
     userAuth, 
@@ -14,7 +19,7 @@ userRouter.get("/user/requests/received",
             const ConnectionRequests = await ConnectionRequest.find({
                 toUserId: loggedInUser._id,
                 status: "interested",
-            });
+            }).populate("fromUserId", USER_SAVE_DATA);
 
             res.json({
                 message: "Data fetched Successfully",
@@ -26,8 +31,6 @@ userRouter.get("/user/requests/received",
         }
     });
 
-
-const USER_SAVE_DATA = ["firstName", "lastName", "photoUrl", "age", "about", "gender"];
 
 userRouter.get("/user/connections",
     userAuth, 
