@@ -3,6 +3,8 @@ const connectDB = require("./config/databaseM");
 const app=express();
 const cookieParser=require("cookie-parser");
 const cors=require("cors");
+const socket = require("socket.io");
+const http = require('http');
 
 
 app.use(
@@ -15,11 +17,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-
 const authRouter=require('./routes/auth');
 const profileRouter=require('./routes/profile');
 const requestRouter=require('./routes/request');
 const userRouter=require('./routes/user');
+const { createServer } = require('node:http');
+const initializeSocket = require('./utils/socket');
 
 
 app.use("/", authRouter);
@@ -28,10 +31,14 @@ app.use("/", requestRouter);
 app.use("/", userRouter);
 
 
+const server = http.createServer(app);
+initializeSocket(server);
+
+
 connectDB()
     .then(()=>{
         console.log("Database connection done");
-        app.listen(3000, () => {
+        server.listen(3000, () => {
             console.log("Server is listening");
         });
     })
