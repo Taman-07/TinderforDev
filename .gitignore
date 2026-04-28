@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-node_modules/
-=======
-config 
-api.md
-data.md
->>>>>>> 3b355a51ca9824f00b5a6ff2be963ce2da330beb
+node_modules
+api.md 
+.env

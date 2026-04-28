@@ -5,6 +5,7 @@ const cookieParser=require("cookie-parser");
 const cors=require("cors");
 const socket = require("socket.io");
 const http = require('http');
+require('dotenv').config();
 
 
 app.use(
@@ -38,7 +39,7 @@ initializeSocket(server);
 connectDB()
     .then(()=>{
         console.log("Database connection done");
-        server.listen(3000, () => {
+        server.listen(process.env.PORT, () => {
             console.log("Server is listening");
         });
     })
